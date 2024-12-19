@@ -17,13 +17,13 @@ class API:
     def secret_to_access_token() -> None:
         filepath = ROOT_PATH + '/API/get_access_token.sh'
         API.make_executable(filepath)
-        subprocess.run(["bash", filepath])
+        subprocess.run(["bash", filepath], cwd=ROOT_PATH)
 
     @staticmethod
     def get_banks_list() -> None:
         filepath = ROOT_PATH + '/API/get_banks_list.sh'
         API.make_executable(filepath)
-        subprocess.run(["bash", filepath])
+        subprocess.run(["bash", filepath], cwd=ROOT_PATH)
 
     @staticmethod
     def connect_to_banks() -> None:
@@ -38,7 +38,7 @@ class API:
             result = subprocess.run(["bash",
                 filepath,  
                 institution_id
-            ], capture_output=True, text=True)
+            ], capture_output=True, text=True, cwd=ROOT_PATH)
 
             if result.returncode == 0:
                 print(f"Success for institution_id {institution_id}: {result.stdout}")
