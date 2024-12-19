@@ -1,3 +1,5 @@
+#!/bin/bash
+
 TOKEN_FILE="secrets/access_token.json"
 ACCESS_TOKEN=$(jq -r '.access' "$TOKEN_FILE")
 

@@ -8,4 +8,6 @@ This repo is made of 5 main components:
 
 # Getting Started
 
-To get started, 
+To get started, you should create a config folder. It must contain
+1. `secrets.json`: This must come from https://bankaccountdata.gocardless.com/user-secrets/ under `developers/user_secrets`
+2. `my_banks.json`: This should be a list of all your bank account providers IDs

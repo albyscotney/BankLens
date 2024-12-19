@@ -1,4 +1,6 @@
-CONFIG_FILE="Secrets/config.json"
+#!/bin/bash
+
+CONFIG_FILE="secrets/config.json"
 
 SECRET_ID=$(jq -r '.secret_id' "$CONFIG_FILE")
 SECRET_KEY=$(jq -r '.secret_key' "$CONFIG_FILE")

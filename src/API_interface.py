@@ -21,17 +21,22 @@ class API:
 
     @staticmethod
     def get_banks_list() -> None:
-        subprocess.run(['API/get_banks_list.sh'])
+        filepath = ROOT_PATH + '/API/get_banks_list.sh'
+        API.make_executable(filepath)
+        subprocess.run(["bash", filepath])
 
     @staticmethod
     def connect_to_banks() -> None:
-        with open('config/my_banks', "r") as file:
+        filepath = ROOT_PATH + '/API/connect_to_banks.sh'
+        API.make_executable(filepath)
+    
+        with open(ROOT_PATH + '/config/my_banks', "r") as file:
             config = json.load(file)
 
         bank_ids = config["bank_ids"]
         for institution_id in bank_ids:              
-            result = subprocess.run([
-                './API/connect_to_banks.sh',  
+            result = subprocess.run(["bash",
+                filepath,  
                 institution_id
             ], capture_output=True, text=True)
 

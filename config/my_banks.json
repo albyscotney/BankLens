@@ -1,11 +1,3 @@
 {
-    "id": "LLOYDS_LOYDGB2L",
-    "name": "Lloyds Bank Personal",
-    "bic": "LOYDGB2L",
-    "transaction_total_days": "730",
-    "countries": [
-        "GB"
-    ],
-    "logo": "https://storage.googleapis.com/gc-prd-institution_icons-production/UK/PNG/lloyds.png",
-    "max_access_valid_for_days": "90"
+    "bank_ids": ["LLOYDS_LOYDGB2L"]
 }
