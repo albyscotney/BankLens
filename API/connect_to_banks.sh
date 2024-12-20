@@ -11,8 +11,6 @@ fi
 
 BANK_ID="$1"
 
-echo "Using Bank ID: $BANK_ID"
-
 curl -X POST "https://bankaccountdata.gocardless.com/api/v2/requisitions/" \
   -H "accept: application/json" \
   -H "Content-Type: application/json" \
@@ -20,4 +18,5 @@ curl -X POST "https://bankaccountdata.gocardless.com/api/v2/requisitions/" \
   -d "{\"redirect\": \"http://www.yourwebpage.com\",
        \"institution_id\": \"$BANK_ID\",
        \"reference\": \"1\",
-       \"user_language\":\"EN\" }"
+       \"user_language\":\"EN\" }" \
+  -o data/banks/bank_contracts/$BANK_ID.json

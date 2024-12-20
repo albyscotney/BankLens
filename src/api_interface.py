@@ -27,11 +27,18 @@ class API:
     @staticmethod
     def secret_to_access_token() -> None:
         """
-        Given a secret from gocardless, convert it to an access token.
+        Given secrets from the secrets directory, convert each to an access token.
         """
+        secrets_dir = ROOT_PATH + "/secrets/secrets"
         filepath = ROOT_PATH + "/API/get_access_token.sh"
         API.make_executable(filepath)
-        subprocess.run(["bash", filepath], cwd=ROOT_PATH, check=True)
+
+        for secret_file in os.listdir(secrets_dir):
+            subprocess.run(
+                ["bash", "-x", filepath, secret_file],
+                cwd=ROOT_PATH,
+                check=True,
+            )
 
     @staticmethod
     def get_banks_list() -> None:
@@ -51,20 +58,26 @@ class API:
         filepath = ROOT_PATH + "/API/connect_to_banks.sh"
         API.make_executable(filepath)
 
-        with open(ROOT_PATH + "/config/my_banks", "r", encoding="utf-8") as file:
+        with open(ROOT_PATH + "/config/my_banks.json", "r", encoding="utf-8") as file:
             config = json.load(file)
 
         bank_ids = config["bank_ids"]
         for institution_id in bank_ids:
             result = subprocess.run(
-                ["bash", filepath, institution_id],
+                ["bash", filepath, institution_id],  # Added -x for verbose output
                 capture_output=True,
                 text=True,
                 cwd=ROOT_PATH,
                 check=True,
             )
+            print(result.stdout)
+            print(result.stderr)
 
-            if result.returncode == 0:
-                print(f"Success for institution_id {institution_id}: {result.stdout}")
-            else:
-                print(f"Error for institution_id {institution_id}: {result.stderr}")
+    @staticmethod
+    def list_banks() -> None:
+        """
+        List the banks that have been connected to.
+        """
+        filepath = ROOT_PATH + "/API/list_banks.sh"
+        API.make_executable(filepath)
+        subprocess.run(["bash", filepath], cwd=ROOT_PATH, check=True)

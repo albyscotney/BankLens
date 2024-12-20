@@ -85,3 +85,7 @@ pydoc () {
 # commands. Without forgetting past commands the $PATH changes
 # we made may not be respected
 hash -r 2>/dev/null || true
+
+# Dynamically add the project root to PYTHONPATH
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+export PYTHONPATH="$PYTHONPATH:$PROJECT_ROOT"
