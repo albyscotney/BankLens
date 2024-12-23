@@ -2,8 +2,6 @@
 A class to hold information around banks
 """
 
-import select
-import sys
 import time
 import webbrowser
 from dataclasses import dataclass, field
@@ -51,7 +49,7 @@ class Bank:
         """
         webbrowser.open(self.requisition["link"])
 
-    def get_accounts_from_bank(self, refresh_rate=90):
+    def get_accounts_from_bank(self, refresh_rate=30):
         """
         Wait for connection to be established and return the account information
         """
@@ -60,13 +58,12 @@ class Bank:
             account_numbers = API.list_accounts(
                 self.secret.access_token["access"], self.requisition["id"]
             )
-            for remaining in range(refresh_rate, 0, -1):
-                print(f"auto refreshing in {remaining} seconds", end="\r")
-                if select.select([sys.stdin], [], [], 1)[0]:
-                    input()
-                    print("User input detected, skipping ahead.")
-                    break
-                time.sleep(1)
+            if account_numbers and account_numbers.get("status") != "LN":
+                account_numbers = None
+            if not account_numbers:
+                for remaining in range(refresh_rate, 0, -1):
+                    print(f"Retrying in {remaining} seconds...", end="\r")
+                    time.sleep(1)
 
         return account_numbers
 

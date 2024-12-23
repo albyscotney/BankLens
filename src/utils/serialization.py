@@ -19,6 +19,10 @@ class PickleHandler:
         """
         if not path:
             raise ValueError("No file path provided for saving.")
+
+        # Create directory if it doesn't exist
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+
         with open(path, "wb") as file:
             pickle.dump(obj, file)
         print(f"Object saved to {path}")
