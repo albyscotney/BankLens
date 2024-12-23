@@ -1,10 +1,12 @@
 #!/bin/bash
 
-TOKEN_FILE="secrets/access_token.json"
-ACCESS_TOKEN=$(jq -r '.access' "$TOKEN_FILE")
+ACCESS_TOKEN=$1
+SAVE_PATH=$2
+
 curl -X GET "https://bankaccountdata.gocardless.com/api/v2/institutions/?country=gb" \
   -H "accept: application/json" \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
-  -o data/banks/banks.json
+  -o $SAVE_PATH
 
-jq . data/banks/banks.json > temp.json && mv temp.json data/banks/banks.json
+
+jq . $SAVE_PATH > temp.json && mv temp.json $SAVE_PATH
