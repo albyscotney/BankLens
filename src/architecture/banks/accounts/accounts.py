@@ -4,9 +4,9 @@ A file to store the structure and methods associated with bank accounts
 
 from dataclasses import dataclass, field
 
-from src.architecture.balance import Balance
-from src.architecture.secret_handling import SecretManager
-from src.architecture.transactions import Transactions
+from src.architecture.banks.accounts.data.balance import Balance
+from src.architecture.banks.accounts.data.transactions import Transactions
+from src.architecture.secrets.secret_handling import SecretManager
 
 
 @dataclass

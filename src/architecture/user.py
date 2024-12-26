@@ -6,7 +6,7 @@ from dataclasses import dataclass, field
 
 import pandas as pd
 
-from src.architecture.banks import Bank
+from src.architecture.banks.banks import Bank
 
 
 @dataclass
@@ -20,7 +20,7 @@ class User:
     transactions: pd.DataFrame = field(repr=False, init=False)
 
     def __post_init__(self):
-        self.banks = []
+        self.banks = {}
         self.transactions = pd.DataFrame(
             columns=["date", "amount", "merchant", "bank", "account", "merchant_id"]
         )

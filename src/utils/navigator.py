@@ -4,7 +4,7 @@ A helper class to interact with gocardless API
 
 import subprocess
 
-from src.architecture.secret_handling import SecretManager
+from src.architecture.secrets.secret_handling import SecretManager
 from src.utils.api import API
 
 

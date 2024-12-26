@@ -6,7 +6,7 @@ from dataclasses import dataclass, field
 
 import pandas as pd
 
-from src.architecture.account_data import AccountData
+from src.architecture.banks.accounts.data.account_data import AccountData
 
 
 @dataclass

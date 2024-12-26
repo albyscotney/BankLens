@@ -5,7 +5,7 @@ A datastore and set of methods for processing balances
 from dataclasses import dataclass
 from typing import Union
 
-from src.architecture.account_data import AccountData
+from src.architecture.banks.accounts.data.account_data import AccountData
 
 
 @dataclass

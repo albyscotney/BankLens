@@ -7,8 +7,8 @@ import webbrowser
 from dataclasses import dataclass, field
 from typing import Union
 
-from src.architecture.accounts import Account
-from src.architecture.secret_handling import SecretManager
+from src.architecture.banks.accounts.accounts import Account
+from src.architecture.secrets.secret_handling import SecretManager
 from src.utils.api import API
 
 

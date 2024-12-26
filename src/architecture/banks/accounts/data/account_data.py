@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
 
 import pandas as pd
 
-from src.architecture.secret_handling import SecretManager
+from src.architecture.secrets.secret_handling import SecretManager
 from src.utils.api import API
 
 
@@ -19,8 +19,8 @@ class AccountData:
     """
 
     secret: SecretManager
-    data_type: str = field(init=False)
     account_number: str
+    data_type: str = field(init=False)
     raw: json = field(init=False)
     processed: pd.DataFrame = field(init=False)
 
