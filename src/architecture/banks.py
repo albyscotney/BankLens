@@ -72,6 +72,13 @@ class Bank:
         Create a class for each account
         """
         return {
-            number: Account(self, number, self.secret)
+            number: Account(number, self.secret)
             for number in self.account_numbers["accounts"]
         }
+
+    def refresh_account_data(self) -> None:
+        """
+        Refresh the data for all accounts
+        """
+        for account in self.accounts.values():
+            account.refresh_data()

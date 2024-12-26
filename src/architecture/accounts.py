@@ -2,17 +2,11 @@
 A file to store the structure and methods associated with bank accounts
 """
 
-from __future__ import annotations
-
-import json
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING
 
+from src.architecture.balance import Balance
 from src.architecture.secret_handling import SecretManager
-from src.utils.api import API
-
-if TYPE_CHECKING:
-    from src.architecture.banks import Bank
+from src.architecture.transactions import Transactions
 
 
 @dataclass
@@ -21,22 +15,23 @@ class Account:
     A class for each bank acccount, storing and fetching the account data
     """
 
-    bank: Bank
     account_number: str
     secret: SecretManager
-    balance: json = field(init=False)
-    transactions: json = field(init=False)
+    balance: Balance = field(init=False)
+    transactions: Transactions = field(init=False)
 
     def __post_init__(self):
-        self.transactions = self.get_account_data("transactions")
-        self.balance = self.get_account_data("balances")
+        self.transactions = self.get_transactions()
+        self.balance = self.get_balance()
 
-    def get_account_data(self, transactions_or_balances):
+    def get_transactions(self) -> None:
         """
-        Retrieve data for the account
+        Refresh the data for the account in place
         """
-        return API.get_account_data(
-            self.account_number,
-            self.secret.access_token["access"],
-            transactions_or_balances,
-        )
+        return Transactions(self.secret, self.account_number)
+
+    def get_balance(self) -> None:
+        """
+        Refresh the data for the account in place
+        """
+        return Balance(self.secret, self.account_number)

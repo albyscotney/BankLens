@@ -1,2 +1,5 @@
 [MASTER]
-ignore=.venv
+ignore=.venv, W2301
+
+[MESSAGES CONTROL]
+disable=E1131, W2301
